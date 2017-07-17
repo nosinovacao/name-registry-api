@@ -3,6 +3,7 @@ branches:
   only:
     - master
     - dev
+    - ci-support
 os:
   - linux
 # .NET CLI require Ubuntu 14.04
