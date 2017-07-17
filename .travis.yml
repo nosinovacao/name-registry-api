@@ -12,7 +12,7 @@ services:
 # Ensure that .NET Core is installed
 dotnet: 1.0.1
 # Ensure Mono is installed
-mono: none
+mono: latest
 env:
     # Set the DOTNET_SKIP_FIRST_TIME_EXPERIENCE environment variable to stop wasting time caching packages
     # Disable sending usage data to Microsoft
