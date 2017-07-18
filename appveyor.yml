@@ -3,6 +3,11 @@ branches:
   only:
     - master
     - dev
+    - ci-support
+# Temporary workaround for AppVeyor "connectivity issues to nuget.org"
+# More info: https://appveyor.statuspage.io/incidents/m2vdvw39kdk8
+hosts:
+  api.nuget.org: 93.184.221.200
 environment:
   # Set the DOTNET_SKIP_FIRST_TIME_EXPERIENCE environment variable to stop wasting time caching packages
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
