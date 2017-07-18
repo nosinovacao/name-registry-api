@@ -15,7 +15,6 @@ environment:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
 # Use init to set the version using the Directory.Build.props file, branch and build number
 on_finish:
-- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 - ps: |
     $versionPrefix = ([xml](Get-Content .\src\Directory.Build.props)).Project.PropertyGroup.VersionPrefix
     Update-AppveyorBuild -Version "$versionPrefix-$env:APPVEYOR_REPO_BRANCH-$env:APPVEYOR_BUILD_NUMBER"
