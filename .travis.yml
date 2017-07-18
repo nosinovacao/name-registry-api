@@ -4,6 +4,7 @@ branches:
     - master
     - dev
     - ci-support
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
 os:
   - linux
 # .NET CLI require Ubuntu 14.04
