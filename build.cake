@@ -10,8 +10,8 @@
 var target = Argument("target", "Full-Build");
 var configuration = Argument("configuration", "Release");
 
-var dockerPushTagSuffix = Argument("dockerTagSuffix", string.Empty);
-var dockerPushLatest = HasArgument("dockerPushLatest");
+var dockerPushCurrentVersion = HasArgument("dockerPushCurrentVersion");
+var dockerPushAdditionalTag = Argument<string>("dockerPushAdditionalTag", null);
 
 
 //////////////////////////////////////////////////////////////////////
@@ -62,15 +62,22 @@ Task("Run-Unit-Tests")
     });
 
 Task("Publish-Website")
-    .IsDependentOn("Build")
+    .IsDependentOn("Clean")
+    .IsDependentOn("Restore-NuGet-Packages")
     .Does(() => 
     {
+        var registryApiLocation = artifactsDir + Directory("NAME.Registry.API/");
+
         var settings = new DotNetCorePublishSettings {
             Configuration = configuration,
-            OutputDirectory = artifactsDir + Directory("NAME.Registry.API/")
+            OutputDirectory = registryApiLocation
         };
 
         DotNetCorePublish("./src/NAME.Registry.API", settings);
+
+        var currentVersion = ReflectAssemblyInfo(registryApiLocation + File("NAME.Registry.API.dll")).AssemblyVersion;
+
+        Zip("./Output/Artifacts", "./Output/Artifacts/NAME.Registry.API.zip", "./Output/Artifacts/**/*");
     });
 
 Task("Docker-Build-AND-Push")
@@ -81,16 +88,13 @@ Task("Docker-Build-AND-Push")
         var currentVersion = ReflectAssemblyInfo(registryApiLocation + File("NAME.Registry.API.dll")).AssemblyVersion;
         
         var dockerImage = "nosinovacao/name-registry-api";
-
-        var currentVersionTag = dockerImage + ":" + currentVersion;
-        if(!string.IsNullOrEmpty(dockerPushTagSuffix))
-            currentVersionTag += ("-" + dockerPushTagSuffix);
-
         var tags = new List<string>();
-        tags.Add(currentVersionTag);
 
-        if(dockerPushLatest)
-            tags.Add(dockerImage + ":latest");
+        if (dockerPushCurrentVersion)
+            tags.Add(dockerImage + ":" + currentVersion);
+
+        if (!string.IsNullOrWhiteSpace(dockerPushAdditionalTag))
+            tags.Add(dockerImage + ":" + dockerPushAdditionalTag);
 
         var buildSettings = new DockerBuildSettings() {
             Tag = tags.ToArray()
@@ -117,7 +121,8 @@ Task("AppVeyor")
     .IsDependentOn("Run-Unit-Tests");
 
 Task("TravisCI")
-    .IsDependentOn("Run-Unit-Tests");
+    .IsDependentOn("Run-Unit-Tests")
+    .IsDependentOn("Publish-Website");
 
 Task("Default")
     .IsDependentOn("Build-AND-Test");
