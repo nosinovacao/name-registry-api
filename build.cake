@@ -75,17 +75,16 @@ Task("Publish-Website")
 
         DotNetCorePublish("./src/NAME.Registry.API", settings);
 
-        var currentVersion = ReflectAssemblyInfo(registryApiLocation + File("NAME.Registry.API.dll")).AssemblyVersion;
-
         Zip("./Output/Artifacts", "./Output/Artifacts/NAME.Registry.API.zip", "./Output/Artifacts/**/*");
     });
 
 Task("Docker-Build-AND-Push")
-    .IsDependentOn("Publish-Website")
     .Does(() => 
     {
         var registryApiLocation = artifactsDir + Directory("NAME.Registry.API/");
-        var currentVersion = ReflectAssemblyInfo(registryApiLocation + File("NAME.Registry.API.dll")).AssemblyVersion;
+        
+        var reflectedAssemblyInfo = ReflectAssemblyInfo(registryApiLocation + File("NAME.Registry.API.dll"));
+        var currentVersion = reflectedAssemblyInfo.AssemblyFileVersion;
         
         var dockerImage = "nosinovacao/name-registry-api";
         var tags = new List<string>();
@@ -100,7 +99,7 @@ Task("Docker-Build-AND-Push")
             Tag = tags.ToArray()
         };
 
-        DockerBuild(buildSettings, artifactsDir + Directory("NAME.Registry.API/Dockerfile"));
+        DockerBuild(buildSettings, registryApiLocation);
     
         foreach(var tag in tags) {
             DockerPush(tag);

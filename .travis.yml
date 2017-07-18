@@ -31,12 +31,12 @@ before_deploy:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: ./build.sh -t Docker-Build-AND-Push -dockerPushCurrentVersion -dockerPushAdditionalTag latest
+    script: ./build.sh -t Docker-Build-AND-Push -dockerPushCurrentVersion -dockerPushAdditionalTag=latest
     on:
       tags: true
   - provider: script
     skip_cleanup: true
-    script: ./build.sh -t Docker-Build-AND-Push -dockerPushAdditionalTag beta
+    script: ./build.sh -t Docker-Build-AND-Push -dockerPushAdditionalTag=beta
     on:
       branch: master
       tags: false
