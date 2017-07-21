@@ -1,5 +1,5 @@
 # Contributing
-First of all, thank you for considering contributing to NAME, we love contributions!
+First of all, thank you for considering contributing to the NAME Registry API, we love contributions!
 
 ## Prerequisites
 By contributing, you assert that:
