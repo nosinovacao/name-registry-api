@@ -18,8 +18,6 @@ We use the [normal .NET coding guidelines](https://docs.microsoft.com/en-us/dotn
 A StyleCop ruleset is included with the project, and the analyser is run for every build. Any StyleCop violation is considered as a Warning. Pull requests with incorrect styling will be rejected.
 
 ### Dependencies
-The assembly `NAME` should only have Microsoft's `System.*` dependencies, with the exception of `Microsoft.CSharp` that is required for the .Net 4.5 assembly.
-
 _Do not_ include the `NETStandard.Library` package in any project, you should always include the most specific package you need.
 
 ### Unit Tests
@@ -40,7 +38,7 @@ Please note that the full unit tests suite will only run on Windows.
 ## Contributing Process
 Fork, then clone the repo:
 
-    git clone git@github.com:your-username/name-sdk.git
+    git clone git@github.com:your-username/name-registry-api.git
 
 [Make sure the tests pass.](#unit-tests)
 
@@ -48,7 +46,7 @@ Make your changes, including tests for the changes you made.
 
 Make sure the solution builds without warnings and tests pass again.
 
-Push to your fork and [submit a pull request](https://github.com/nosinovacao/name-sdk/compare/
+Push to your fork and [submit a pull request](https://github.com/nosinovacao/name-regisrty-api/compare/
 ).
 
 Some things that will increase the chance that your pull request is accepted:
