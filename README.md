@@ -26,7 +26,7 @@ You can use our [existing Web UI solution](https://github.com/nosinovacao/name-r
 ### Running on docker
 The Registry API is provided as a docker image, to spin up a container listening on the port 80 use the following command.
 ```bash
-docker run -d -p 80:5000 nosinovacao/name-registry-api:1.0.0
+docker run -d -p 80:5000 nosinovacao/name-registry-api
 ```
 
 Since the API uses [LiteDB](http://www.litedb.org/) to keep state, when the container is deleted the data will be lost, to keep the data consider mapping the database file in a volume.
@@ -35,7 +35,7 @@ docker run -d \
     -e "ConnectionStrings:RegistryLiteDB=/data/db/name-registry-api/Registry.db" \
     -v /data/name-registry-api/db/:/data/name-registry-api/db/ \
     -p 80:5000 \
-    nosinovacao/name-registry-api:1.0.0
+    nosinovacao/name-registry-api
 ```
 
 The environment variable `ConnectionStrings:RegistryLiteDB` sets the path of the database file.
@@ -58,7 +58,7 @@ To build and run unit tests on Linux execute the command:
 ```
 
 ## Contributing
-We really appreciate your interest in contributing to NAME. 👍
+We really appreciate your interest in contributing to the NAME Registry API. 👍
 
 All we ask is that you follow some simple guidelines, so please read the [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
 
