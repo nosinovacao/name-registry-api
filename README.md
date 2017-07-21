@@ -18,6 +18,9 @@ The Registry API keeps the services in three fundamental entities:
 * Service lifecycle information
 * Manifest snapshots
 * Cross-platform
+* Query APIs
+
+You can use our [existing Web UI solution](https://github.com/nosinovacao/name-registry-ui) to access the data in a human-friendly way.
 
 ## Getting Started
 ### Running on docker
