@@ -46,7 +46,7 @@ Make your changes, including tests for the changes you made.
 
 Make sure the solution builds without warnings and tests pass again.
 
-Push to your fork and [submit a pull request](https://github.com/nosinovacao/name-regisrty-api/compare/
+Push to your fork and [submit a pull request](https://github.com/nosinovacao/name-registry-api/compare/
 ).
 
 Some things that will increase the chance that your pull request is accepted:
